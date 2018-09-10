@@ -1,0 +1,44 @@
+<div class="container">
+  <form #relationForm="ngForm" (ngSubmit)="createRelation(relationForm,word1.value,word2.value,relation.value)">
+    <div class="form-group">
+      <label for="word1">Enter Word 1</label>
+      <input #word1 type="text" id="word1" class="form-control"  required ng-pattern="/[^a-zA-Z]/"   />
+      <p ng-show="digits.alpha.$error.pattern">Text only, please.</p> 
+    </div>
+
+
+    <div class="from-group">
+      <label for="word2">Enter Word 2</label>
+      <input #word2 type="text" id="word2" class="form-control" required ng-pattern="/[^a-zA-Z]/" />
+      <p ng-show="digits.alpha.$error.pattern">Text only, please.</p>
+    </div>
+
+    <div class="form-group">
+      <label for="relation">Choose the Relationship between Word1 & Word2</label>
+      <select #relation id="relation" class="form-control" required>
+        <option value="" disabled hidden>Please choose the Relatonship</option>
+        <option *ngFor="let r of relations" value={{r}}> {{r}} </option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-default" >Save</button>
+  </form>
+
+  <div *ngIf="relationsList.length">
+    <h2>Words List</h2>
+
+    <input type="checkbox" id="related"  (change)="onRelatedSelected()"> Related
+    <input type="checkbox" id="antonyms"  (change)="onAntonymsSelected()"> Antonyms
+    <input type="checkbox" id="synonyms"  (change)="onSynonymSelected()"> Synonyms
+
+    <ul>
+      <li *ngFor="let relation of relationsList">
+        <span> W1 : {{relation.word1}}  </span>
+        <span>W2: {{relation.word2}}  </span>
+        <span>Relation: {{relation.relation}} </span>
+      </li>
+    </ul>
+
+  </div>
+  
+</div>
